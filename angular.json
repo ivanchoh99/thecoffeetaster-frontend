@@ -2,7 +2,8 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": "7fc2b6ba-7fe4-4aed-a447-77ec61a06420"
   },
   "newProjectRoot": "projects",
   "projects": {
@@ -30,13 +31,9 @@
               }
             ],
             "styles": [
+              "node_modules/grapesjs/dist/css/grapes.min.css",
               "src/styles.scss"
-            ],
-            "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            }
+            ]
           },
           "configurations": {
             "production": {
