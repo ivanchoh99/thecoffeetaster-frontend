@@ -1,0 +1,267 @@
+:host {
+  display: block;
+  min-height: 100%;
+}
+
+.building-page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+  background:
+    linear-gradient(160deg, #1a120b 0%, #2b1d12 55%, #17100a 100%);
+  color: #f5ede0;
+}
+
+.building-card {
+  width: 100%;
+  max-width: 560px;
+  text-align: center;
+  background: rgba(255, 248, 235, 0.06);
+  border: 1px solid rgba(245, 237, 224, 0.14);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #e8c97a;
+  background: rgba(201, 162, 39, 0.14);
+  border: 1px solid rgba(232, 201, 122, 0.35);
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  margin: 0 0 1.25rem;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e8c97a;
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+.cup {
+  position: relative;
+  width: 150px;
+  margin: 0 auto 0.5rem;
+
+  svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .shadow {
+    fill: rgba(0, 0, 0, 0.35);
+  }
+
+  .cup-body {
+    fill: #f5ede0;
+  }
+
+  .cup-handle {
+    fill: none;
+    stroke: #f5ede0;
+    stroke-width: 8;
+    stroke-linecap: round;
+  }
+
+  .coffee {
+    fill: #6f4e37;
+  }
+
+  .crema {
+    fill: #c9a227;
+    opacity: 0.85;
+  }
+}
+
+.steam {
+  position: absolute;
+  top: -8px;
+  width: 6px;
+  height: 34px;
+  border-radius: 999px;
+  background: linear-gradient(to top, transparent, rgba(245, 237, 224, 0.7));
+  opacity: 0;
+  animation: steam 2.6s ease-in-out infinite;
+}
+
+.steam-1 {
+  left: 34%;
+}
+
+.steam-2 {
+  left: 50%;
+  animation-delay: 0.5s;
+  height: 44px;
+  top: -18px;
+}
+
+.steam-3 {
+  left: 64%;
+  animation-delay: 1s;
+}
+
+h1 {
+  font-size: clamp(1.9rem, 4.5vw, 2.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0.75rem 0;
+  color: #fff8eb;
+}
+
+.subtitle {
+  color: rgba(245, 237, 224, 0.78);
+  line-height: 1.6;
+  margin: 0 auto 1.5rem;
+  max-width: 44ch;
+
+  strong {
+    color: #e8c97a;
+  }
+}
+
+.progress {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(245, 237, 224, 0.14);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 70%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #c9a227, #e8c97a, #6f4e37);
+  background-size: 200% 100%;
+  animation: fill 1.2s ease-out both, shimmer 2.4s linear infinite;
+}
+
+.progress-label {
+  font-size: 0.85rem;
+  color: rgba(245, 237, 224, 0.65);
+  margin: 0.6rem 0 1.5rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn {
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.75rem 1.4rem;
+  border-radius: 999px;
+  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  display: inline-block;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-primary {
+  background: #c9a227;
+  color: #1a120b;
+
+  &:hover {
+    background: #e8c97a;
+  }
+}
+
+.btn-ghost {
+  border: 1px solid rgba(245, 237, 224, 0.3);
+  color: #f5ede0;
+
+  &:hover {
+    border-color: rgba(245, 237, 224, 0.6);
+    background: rgba(245, 237, 224, 0.08);
+  }
+}
+
+.footer {
+  margin: 1.75rem 0 0;
+  font-size: 0.8rem;
+  color: rgba(245, 237, 224, 0.5);
+}
+
+@keyframes steam {
+  0% {
+    opacity: 0;
+    transform: translateY(8px) scaleY(0.8);
+  }
+
+  40% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-10px) scaleY(1.1);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+}
+
+@keyframes fill {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 70%;
+  }
+}
+
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .building-card {
+    padding: 2rem 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .steam,
+  .badge-dot,
+  .progress-bar {
+    animation: none;
+  }
+
+  .progress-bar {
+    width: 70%;
+  }
+}

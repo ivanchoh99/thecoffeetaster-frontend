@@ -33,7 +33,8 @@
             "styles": [
               "node_modules/grapesjs/dist/css/grapes.min.css",
               "src/styles.scss"
-            ]
+            ],
+            "outputPath": "dist/cloudflare"
           },
           "configurations": {
             "production": {
