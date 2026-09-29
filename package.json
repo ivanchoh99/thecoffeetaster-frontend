@@ -45,6 +45,7 @@
     "@types/node": "^20.17.19",
     "jsdom": "^27.1.0",
     "typescript": "~5.9.2",
-    "vitest": "^4.0.8"
+    "vitest": "^4.0.8",
+    "wrangler": "^4.142.0"
   }
 }
