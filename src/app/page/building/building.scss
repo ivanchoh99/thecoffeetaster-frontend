@@ -1,26 +1,39 @@
 :host {
   display: block;
-  min-height: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
 }
 
 .building-page {
+  box-sizing: border-box;
+  min-height: 100vh;
+  min-height: 100svh;
   min-height: 100dvh;
-  display: grid;
-  place-items: center;
-  padding: 2rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding:
+    clamp(1rem, 4vw, 2rem)
+    clamp(0.75rem, 4vw, 1.5rem)
+    calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-bottom, 0px));
+  padding-top: calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-top, 0px));
   background:
     linear-gradient(160deg, #1a120b 0%, #2b1d12 55%, #17100a 100%);
   color: #f5ede0;
+  overflow-y: auto;
 }
 
 .building-card {
-  width: 100%;
-  max-width: 560px;
+  box-sizing: border-box;
+  width: min(100%, 35rem);
+  margin: auto;
+  min-width: 0;
   text-align: center;
   background: rgba(255, 248, 235, 0.06);
   border: 1px solid rgba(245, 237, 224, 0.14);
-  border-radius: 24px;
-  padding: 2.5rem 2rem;
+  border-radius: clamp(16px, 4vw, 24px);
+  padding: clamp(1.5rem, 5vw, 2.5rem) clamp(1rem, 5vw, 2rem);
   backdrop-filter: blur(12px);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
 }
@@ -28,10 +41,15 @@
 .badge {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 0.5rem;
-  font-size: 0.8rem;
+  max-width: 100%;
+  font-size: clamp(0.7rem, 2.5vw, 0.8rem);
+  line-height: 1.4;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-wrap: balance;
   color: #e8c97a;
   background: rgba(201, 162, 39, 0.14);
   border: 1px solid rgba(232, 201, 122, 0.35);
@@ -50,7 +68,7 @@
 
 .cup {
   position: relative;
-  width: 150px;
+  width: clamp(96px, 32vw, 150px);
   margin: 0 auto 0.5rem;
 
   svg {
@@ -112,93 +130,35 @@
 }
 
 h1 {
-  font-size: clamp(1.9rem, 4.5vw, 2.75rem);
+  font-size: clamp(1.6rem, 1.2rem + 4vw, 2.75rem);
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0.75rem 0;
   color: #fff8eb;
+  text-wrap: balance;
+  overflow-wrap: break-word;
 }
 
 .subtitle {
   color: rgba(245, 237, 224, 0.78);
+  font-size: clamp(0.925rem, 0.9rem + 1vw, 1rem);
   line-height: 1.6;
   margin: 0 auto 1.5rem;
   max-width: 44ch;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
 
   strong {
     color: #e8c97a;
   }
 }
 
-.progress {
-  height: 10px;
-  border-radius: 999px;
-  background: rgba(245, 237, 224, 0.14);
-  overflow: hidden;
-}
-
-.progress-bar {
-  height: 100%;
-  width: 70%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, #c9a227, #e8c97a, #6f4e37);
-  background-size: 200% 100%;
-  animation: fill 1.2s ease-out both, shimmer 2.4s linear infinite;
-}
-
-.progress-label {
-  font-size: 0.85rem;
-  color: rgba(245, 237, 224, 0.65);
-  margin: 0.6rem 0 1.5rem;
-}
-
-.actions {
-  display: flex;
-  gap: 0.75rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn {
-  text-decoration: none;
-  font-weight: 600;
-  padding: 0.75rem 1.4rem;
-  border-radius: 999px;
-  transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-  display: inline-block;
-
-  &:hover {
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
-}
-
-.btn-primary {
-  background: #c9a227;
-  color: #1a120b;
-
-  &:hover {
-    background: #e8c97a;
-  }
-}
-
-.btn-ghost {
-  border: 1px solid rgba(245, 237, 224, 0.3);
-  color: #f5ede0;
-
-  &:hover {
-    border-color: rgba(245, 237, 224, 0.6);
-    background: rgba(245, 237, 224, 0.08);
-  }
-}
-
 .footer {
   margin: 1.75rem 0 0;
-  font-size: 0.8rem;
+  font-size: clamp(0.72rem, 2vw, 0.8rem);
+  line-height: 1.5;
   color: rgba(245, 237, 224, 0.5);
+  text-wrap: balance;
 }
 
 @keyframes steam {
@@ -231,37 +191,42 @@ h1 {
   }
 }
 
-@keyframes fill {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 70%;
-  }
-}
-
-@keyframes shimmer {
-  to {
-    background-position: -200% 0;
-  }
-}
-
-@media (max-width: 480px) {
+@media (max-height: 540px) and (orientation: landscape) {
   .building-card {
-    padding: 2rem 1.25rem;
+    padding-block: 1.25rem;
+  }
+
+  .cup {
+    width: clamp(72px, 14vh, 104px);
+    margin-bottom: 0.25rem;
+  }
+
+  .badge {
+    margin-bottom: 0.75rem;
+  }
+
+  h1 {
+    margin: 0.5rem 0;
+  }
+
+  .subtitle {
+    margin-bottom: 1rem;
+  }
+
+  .footer {
+    margin-top: 1rem;
+  }
+
+  .steam-2 {
+    height: 30px;
+    top: -10px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
 
   .steam,
-  .badge-dot,
-  .progress-bar {
+  .badge-dot {
     animation: none;
-  }
-
-  .progress-bar {
-    width: 70%;
   }
 }
