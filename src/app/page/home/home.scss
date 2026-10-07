@@ -1,0 +1,344 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  background: var(--mat-sys-surface-container-low, #faf7f2);
+}
+
+.home-page {
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 0;
+  color: var(--brand-body, #292524);
+  font-size: 1rem;
+  line-height: 1.7;
+  background: var(--mat-sys-surface-container-low, #faf7f2);
+  overflow-x: clip;
+}
+
+/* ---------- Hero a sangre completa ---------- */
+
+.hero {
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+  padding:
+    clamp(3rem, 8vw, 5.5rem)
+    max(1.25rem, calc((100% - 56rem) / 2))
+    clamp(2.5rem, 6vw, 4rem);
+  color: var(--brand-hueso, #f5ede0);
+  background: var(--brand-espresso, #4a2c17);
+
+  h1 {
+    margin: 0.75rem auto;
+    max-width: 20ch;
+    font-size: clamp(2.1rem, 1.4rem + 5vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--brand-crema, #fff8eb);
+    text-wrap: balance;
+  }
+}
+
+.badge {
+  display: inline-block;
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-gold, #ffd98a);
+  background: rgba(232, 201, 122, 0.14);
+  border: 1px solid rgba(255, 217, 138, 0.45);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+}
+
+.subtitle {
+  margin: 0 auto 1.75rem;
+  max-width: 54ch;
+  color: rgba(245, 237, 224, 0.85);
+  font-size: clamp(0.95rem, 0.9rem + 0.8vw, 1.08rem);
+  text-wrap: pretty;
+
+  strong {
+    color: var(--brand-gold, #ffd98a);
+    font-weight: 600;
+  }
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+/* CTAs del hero con Angular Material: el dorado sale del rol secondary del tema
+   (M3 ya aporta pill, ripple, foco y estados hover/pressed). */
+
+.btn-gold {
+  @include mat.button-overrides((
+    filled-container-color: var(--mat-sys-secondary-container),
+    filled-label-text-color: var(--mat-sys-on-secondary-container),
+    filled-state-layer-color: var(--mat-sys-on-secondary-container),
+    filled-ripple-color: rgba(32, 21, 16, 0.2),
+  ));
+  font-weight: 600;
+}
+
+.btn-ghost {
+  @include mat.button-overrides((
+    outlined-outline-color: var(--mat-sys-secondary-container),
+    outlined-label-text-color: var(--mat-sys-secondary-container),
+    outlined-state-layer-color: var(--mat-sys-secondary-container),
+    outlined-ripple-color: rgba(255, 217, 138, 0.25),
+  ));
+  font-weight: 600;
+}
+
+/* ---------- Secciones a viewport completo ---------- */
+
+.section {
+  box-sizing: border-box;
+  width: 100%;
+  padding:
+    clamp(2.5rem, 6vw, 4rem)
+    max(1.25rem, calc((100% - 72rem) / 2));
+  scroll-margin-top: 1rem;
+
+  h2 {
+    margin: 0.35rem 0 0.7rem;
+    max-width: 24ch;
+    font-size: clamp(1.4rem, 1.1rem + 2.5vw, 2rem);
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    color: var(--brand-ink, #1c1917);
+    text-wrap: balance;
+  }
+}
+
+.section--tint {
+  background: var(--brand-leche);
+  border-block: 1px solid var(--brand-arena);
+}
+
+.section--dark {
+  background: var(--brand-roast, #5a3a22);
+  color: var(--brand-hueso, #f5ede0);
+
+  h2 {
+    color: var(--brand-crema, #fff8eb);
+  }
+
+  .eyebrow {
+    color: var(--brand-gold, #ffd98a);
+  }
+
+  .lead {
+    color: rgba(245, 237, 224, 0.78);
+
+    strong {
+      color: var(--brand-gold, #ffd98a);
+    }
+  }
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand-ochre, #92600f);
+  font-weight: 700;
+}
+
+.lead {
+  margin: 0 0 1.5rem;
+  max-width: 68ch;
+  color: var(--brand-muted, #57534e);
+  text-wrap: pretty;
+
+  strong {
+    color: var(--brand-body, #292524);
+  }
+}
+
+/* ---------- Cards ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 1rem;
+}
+
+.card {
+  @include mat.card-overrides((
+    outlined-container-color: var(--brand-parchment),
+    outlined-outline-color: var(--brand-arena),
+  ));
+  border-top: 4px solid var(--brand-dorado);
+  border-radius: 14px;
+  padding: 1.25rem 1.15rem;
+  box-shadow: 0 2px 8px rgba(41, 37, 36, 0.06);
+
+  h3 {
+    margin: 0.4rem 0 0.4rem;
+    font-size: 1rem;
+    color: var(--brand-ink);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--brand-muted);
+  }
+}
+
+.card-index {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--brand-clay);
+}
+
+/* ---------- Quién soy ---------- */
+
+.about-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+  background: var(--brand-parchment, #fffdf9);
+  border: 1px solid var(--brand-arena);
+  border-radius: 16px;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  box-shadow: 0 4px 16px rgba(146, 96, 15, 0.1);
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.monogram {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--brand-crema, #fff8eb);
+  background: var(--brand-coffee, #6f4e37);
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.about-body {
+  min-width: 0;
+
+  h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--brand-ink, #1c1917);
+  }
+
+  .role {
+    margin: 0.2rem 0 0.9rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brand-clay, #b45309);
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0 0 0.9rem;
+    font-size: 0.94rem;
+    color: var(--brand-soft, #44403c);
+
+    strong {
+      color: var(--brand-ink, #1c1917);
+    }
+  }
+
+  blockquote {
+    margin: 1rem 0 0;
+    padding: 0.7rem 1rem;
+    border-left: 4px solid var(--brand-ember, #c2410c);
+    background: rgba(194, 65, 12, 0.08);
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
+    font-size: 0.93rem;
+    color: var(--brand-soft, #44403c);
+  }
+}
+
+/* ---------- Futuro sobre fondo oscuro ---------- */
+
+.section--dark .card {
+  @include mat.card-overrides((
+    outlined-container-color: rgba(255, 248, 235, 0.07),
+    outlined-outline-color: rgba(245, 237, 224, 0.16),
+  ));
+  border-top: 4px solid var(--brand-gold);
+  box-shadow: none;
+
+  h3 {
+    color: var(--brand-crema);
+  }
+
+  p {
+    color: rgba(245, 237, 224, 0.75);
+  }
+}
+
+.card .status {
+  display: inline-block;
+  margin: 0 0 0.45rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-ochre, #92600f);
+  background: rgba(201, 162, 39, 0.16);
+  border: 1px solid rgba(180, 83, 9, 0.3);
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+}
+
+.section--dark .card .status {
+  color: var(--brand-gold);
+  background: rgba(255, 217, 138, 0.12);
+  border-color: rgba(255, 217, 138, 0.35);
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  box-sizing: border-box;
+  width: 100%;
+  text-align: center;
+  padding: 2rem max(1.25rem, calc((100% - 72rem) / 2)) 2.5rem;
+  background: var(--brand-toast, #3a2718);
+  color: rgba(245, 237, 224, 0.6);
+
+  p {
+    margin: 0;
+    font-size: 0.8rem;
+    text-wrap: balance;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none;
+  }
+}

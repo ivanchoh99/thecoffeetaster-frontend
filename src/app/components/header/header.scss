@@ -1,0 +1,43 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.site-header {
+  justify-content: center;
+  background: var(--brand-espresso, #4a2c17);
+  color: var(--brand-crema, #fff8eb);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: inherit;
+  text-decoration: none;
+
+  /* Hover cálido a juego con el café, mantiene el ripple de Material */
+  --mat-button-text-label-text-color: var(--brand-crema, #fff8eb);
+  --mat-button-text-hover-state-layer-color: rgba(255, 248, 235, 0.12);
+  --mat-button-text-focus-state-layer-color: rgba(255, 248, 235, 0.16);
+  --mat-button-text-pressed-state-layer-color: rgba(255, 248, 235, 0.2);
+  --mat-button-ripple-color: rgba(255, 248, 235, 0.25);
+}
+
+.monogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--brand-crema, #fff8eb);
+  background: var(--brand-coffee, #6f4e37);
+  border-radius: 50%;
+}
+
+.wordmark {
+  font-weight: 700;
+}
