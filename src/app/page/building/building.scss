@@ -18,9 +18,8 @@
     clamp(0.75rem, 4vw, 1.5rem)
     calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-bottom, 0px));
   padding-top: calc(clamp(1rem, 4vw, 2rem) + env(safe-area-inset-top, 0px));
-  background:
-    linear-gradient(160deg, #1a120b 0%, #2b1d12 55%, #17100a 100%);
-  color: #f5ede0;
+  background: var(--brand-espresso, #4a2c17);
+  color: var(--brand-hueso, #f5ede0);
   overflow-y: auto;
 }
 
@@ -50,7 +49,7 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-wrap: balance;
-  color: #e8c97a;
+  color: var(--brand-honey, #e8c97a);
   background: rgba(201, 162, 39, 0.14);
   border: 1px solid rgba(232, 201, 122, 0.35);
   padding: 0.45rem 0.9rem;
@@ -62,7 +61,7 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #e8c97a;
+  background: var(--brand-honey, #e8c97a);
   animation: pulse 1.6s ease-in-out infinite;
 }
 
@@ -82,22 +81,22 @@
   }
 
   .cup-body {
-    fill: #f5ede0;
+    fill: var(--brand-hueso, #f5ede0);
   }
 
   .cup-handle {
     fill: none;
-    stroke: #f5ede0;
+    stroke: var(--brand-hueso, #f5ede0);
     stroke-width: 8;
     stroke-linecap: round;
   }
 
   .coffee {
-    fill: #6f4e37;
+    fill: var(--brand-coffee, #6f4e37);
   }
 
   .crema {
-    fill: #c9a227;
+    fill: var(--brand-dorado, #c9a227);
     opacity: 0.85;
   }
 }
@@ -134,7 +133,7 @@ h1 {
   line-height: 1.1;
   letter-spacing: -0.02em;
   margin: 0.75rem 0;
-  color: #fff8eb;
+  color: var(--brand-crema, #fff8eb);
   text-wrap: balance;
   overflow-wrap: break-word;
 }
@@ -149,7 +148,7 @@ h1 {
   overflow-wrap: break-word;
 
   strong {
-    color: #e8c97a;
+  color: var(--brand-honey, #e8c97a);
   }
 }
 

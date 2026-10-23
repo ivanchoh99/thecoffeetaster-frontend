@@ -1,0 +1,17 @@
+<mat-toolbar class="site-nav">
+  <nav class="nav-list" aria-label="Navegación principal">
+    @for (link of links; track link.path) {
+      <a
+        [matButton]="rla.isActive ? 'tonal' : 'filled'"
+        class="nav-link"
+        [routerLink]="link.path"
+        routerLinkActive
+        [routerLinkActiveOptions]="soloExacto"
+        ariaCurrentWhenActive="page"
+        #rla="routerLinkActive"
+      >
+        {{ link.label }}
+      </a>
+    }
+  </nav>
+</mat-toolbar>
