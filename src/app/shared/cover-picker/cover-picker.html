@@ -1,0 +1,86 @@
+<div class="cover-picker">
+  <div class="mode-switch" role="group" aria-label="Tipo de portada">
+    <button
+      mat-stroked-button
+      type="button"
+      [class.is-active]="mode() === 'emoji'"
+      [attr.aria-pressed]="mode() === 'emoji'"
+      [disabled]="disabled()"
+      (click)="setMode('emoji')"
+    >
+      Icono
+    </button>
+    <button
+      mat-stroked-button
+      type="button"
+      [class.is-active]="mode() === 'image'"
+      [attr.aria-pressed]="mode() === 'image'"
+      [disabled]="disabled()"
+      (click)="setMode('image')"
+    >
+      Imagen
+    </button>
+  </div>
+
+  @if (mode() === 'emoji') {
+    <ul class="emoji-grid" aria-label="Elige un icono para la portada">
+      @for (emoji of emojis; track emoji) {
+        <li>
+          <button
+            type="button"
+            class="emoji-option"
+            [class.is-selected]="value() === emoji"
+            [attr.aria-pressed]="value() === emoji"
+            [attr.aria-label]="'Icono ' + emoji"
+            [disabled]="disabled()"
+            (click)="selectEmoji(emoji)"
+          >
+            {{ emoji }}
+          </button>
+        </li>
+      }
+    </ul>
+  } @else if (isImage(value())) {
+    <div class="image-preview">
+      <img [src]="value()" alt="Portada seleccionada" />
+      <div class="image-actions">
+        <label class="upload-button">
+          Cambiar imagen
+          <input
+            type="file"
+            accept="image/*"
+            hidden
+            [disabled]="disabled()"
+            (change)="onFileSelected($event)"
+          />
+        </label>
+        <button type="button" class="remove-button" [disabled]="disabled()" (click)="clearImage()">
+          Quitar
+        </button>
+      </div>
+    </div>
+  } @else {
+    <label
+      class="dropzone"
+      [class.is-dragging]="dragging()"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave()"
+      (drop)="onDrop($event)"
+    >
+      <span class="dropzone-icon" aria-hidden="true">🖼️</span>
+      <span class="dropzone-text">Arrastra una imagen o <strong>haz clic para elegir</strong></span>
+      <span class="dropzone-hint">JPG, PNG o WebP · se optimiza automáticamente</span>
+      <input
+        type="file"
+        accept="image/*"
+        hidden
+        [disabled]="disabled()"
+        (change)="onFileSelected($event)"
+      />
+    </label>
+  }
+
+  @if (imageError(); as error) {
+    <p class="cover-error">{{ error }}</p>
+  }
+</div>

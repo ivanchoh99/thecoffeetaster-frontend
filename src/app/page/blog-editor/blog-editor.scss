@@ -251,6 +251,19 @@
   }
 }
 
+.field-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-top: 0.25rem;
+}
+
+.field-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--brand-muted);
+}
+
 /* ---------- Editor de bloques ---------- */
 
 .js2-host {

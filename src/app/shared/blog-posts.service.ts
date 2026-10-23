@@ -11,7 +11,7 @@ export class BlogPostsService {
     return this.postsSignal().find((post) => post.id === id);
   }
 
-  save(post: BlogPost): void {
+  save(post: BlogPost): boolean {
     const posts = this.postsSignal();
     const index = posts.findIndex((item) => item.id === post.id);
     const next = [...posts];
@@ -21,7 +21,7 @@ export class BlogPostsService {
       next.push(post);
     }
     this.postsSignal.set(next);
-    this.writeToStorage(next);
+    return this.writeToStorage(next);
   }
 
   remove(id: string): void {
@@ -46,14 +46,16 @@ export class BlogPostsService {
     }
   }
 
-  private writeToStorage(posts: BlogPost[]): void {
+  private writeToStorage(posts: BlogPost[]): boolean {
     if (typeof localStorage === 'undefined') {
-      return;
+      return true;
     }
     try {
       localStorage.setItem(this.storageKey, JSON.stringify(posts));
+      return true;
     } catch {
       // Sin espacio o almacenamiento bloqueado: la copia en memoria sigue viva.
+      return false;
     }
   }
 }

@@ -20,6 +20,7 @@ import { Header } from '../../components/header/header';
 import {
   BLOG_CATEGORIES,
   EMPTY_META,
+  buildExcerpt,
   countWords,
   createEmptyBlocks,
   estimateReadTime,
@@ -30,6 +31,7 @@ import {
   type BlogPostStatus,
 } from '../../shared/blog-post.model';
 import { BlogPostsService } from '../../shared/blog-posts.service';
+import { CoverPicker } from '../../shared/cover-picker/cover-picker';
 import { PostPreview } from '../../shared/post-preview/post-preview';
 
 interface EditorMessage {
@@ -48,6 +50,7 @@ interface EditorMessage {
     MatInputModule,
     MatSelectModule,
     NgxEditorJs2Component,
+    CoverPicker,
     PostPreview,
   ],
   templateUrl: './blog-editor.html',
@@ -63,7 +66,6 @@ export class BlogEditor {
   protected readonly categories = BLOG_CATEGORIES;
   protected readonly form = this.formBuilder.nonNullable.group({
     title: ['', Validators.required],
-    slug: [''],
     excerpt: [''],
     author: [EMPTY_META.author],
     category: [EMPTY_META.category],
@@ -71,13 +73,14 @@ export class BlogEditor {
     cover: [EMPTY_META.cover],
   });
 
+  private readonly slug = signal('');
   private readonly formValue = toSignal(
     this.form.valueChanges.pipe(map(() => this.form.getRawValue())),
     { initialValue: this.form.getRawValue() },
   );
   protected readonly meta = computed<BlogPostMeta>(() => ({
     title: this.formValue().title,
-    slug: this.formValue().slug,
+    slug: this.slug(),
     excerpt: this.formValue().excerpt,
     author: this.formValue().author,
     category: this.formValue().category,
@@ -97,15 +100,12 @@ export class BlogEditor {
   protected readonly status = signal<BlogPostStatus>('draft');
   protected readonly message = signal<EditorMessage | null>(null);
 
-  protected slugEdited = false;
   private postId = createId();
   private createdAt = new Date().toISOString();
 
   constructor() {
     this.form.controls.title.valueChanges.subscribe((title) => {
-      if (!this.slugEdited) {
-        this.form.controls.slug.setValue(slugify(title));
-      }
+      this.slug.set(slugify(title));
     });
     this.loadFromQuery();
   }
@@ -180,10 +180,9 @@ export class BlogEditor {
   private resetEntry(): void {
     this.postId = createId();
     this.createdAt = new Date().toISOString();
-    this.slugEdited = false;
+    this.slug.set('');
     this.form.reset({
       title: '',
-      slug: '',
       excerpt: '',
       author: EMPTY_META.author,
       category: EMPTY_META.category,
@@ -208,14 +207,17 @@ export class BlogEditor {
     }
 
     const blocks = await this.snapshotBlocks();
+    const excerpt =
+      this.form.controls.excerpt.value.trim() || buildExcerpt(blocks);
+    if (excerpt && !this.form.controls.excerpt.value.trim()) {
+      this.form.controls.excerpt.setValue(excerpt);
+    }
     const meta: BlogPostMeta = {
       ...this.meta(),
       title,
-      slug: this.form.controls.slug.value.trim() || slugify(title),
+      excerpt,
+      slug: this.slug() || slugify(title),
     };
-    if (!this.form.controls.slug.value.trim()) {
-      this.form.controls.slug.setValue(meta.slug);
-    }
 
     const post: BlogPost = {
       id: this.postId,
@@ -225,12 +227,19 @@ export class BlogEditor {
       createdAt: this.createdAt,
       updatedAt: new Date().toISOString(),
     };
-    this.postsService.save(post);
+    const saved = this.postsService.save(post);
     this.status.set(status);
-    this.message.set({
-      type: 'ok',
-      text: status === 'published' ? 'Entrada publicada.' : 'Borrador guardado.',
-    });
+    this.message.set(
+      saved
+        ? {
+            type: 'ok',
+            text: status === 'published' ? 'Entrada publicada.' : 'Borrador guardado.',
+          }
+        : {
+            type: 'error',
+            text: 'No se pudo guardar: puede que la imagen ocupe demasiado. Prueba con una más pequeña.',
+          },
+    );
     void this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { post: this.postId },
@@ -270,16 +279,15 @@ export class BlogEditor {
     this.postId = post.id;
     this.createdAt = post.createdAt;
     this.status.set(post.status);
-    this.slugEdited = true;
     this.form.patchValue({
       title: post.meta.title,
-      slug: post.meta.slug,
       excerpt: post.meta.excerpt,
       author: post.meta.author,
       category: post.meta.category,
       tags: post.meta.tags.join(', '),
       cover: post.meta.cover,
     });
+    this.slug.set(post.meta.slug);
     this.setBlocks(post.blocks);
     this.message.set(null);
   }

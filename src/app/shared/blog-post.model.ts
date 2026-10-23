@@ -77,6 +77,17 @@ export function estimateReadTime(blocks: NgxEditorJsBlock[]): number {
   return Math.max(1, Math.ceil(countWords(blocks) / 200));
 }
 
+export function buildExcerpt(blocks: NgxEditorJsBlock[], limit = 180): string {
+  const text = blocksToPlainText(blocks);
+  if (text.length <= limit) {
+    return text;
+  }
+  const cut = text.slice(0, limit);
+  const lastSpace = cut.lastIndexOf(' ');
+  const safeCut = lastSpace > 60 ? cut.slice(0, lastSpace) : cut;
+  return `${safeCut.trim()}…`;
+}
+
 export function createEmptyBlocks(): NgxEditorJsBlock[] {
   return [
     {
