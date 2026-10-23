@@ -1,45 +1,169 @@
 <app-header></app-header>
+
 <main class="editor-page">
   <header class="editor-hero">
     <p class="category">Editor del blog</p>
-    <h1>Crea tu entrada</h1>
+    <h1>Crear entrada</h1>
     <p class="lead">
-      Escribe por bloques: añade texto, citas, listas y tablas, y reordénalos
-      arrastrando.
+      Completa los detalles, redacta por bloques y revisa la vista previa antes de publicar.
     </p>
   </header>
 
-  <section class="editor-card" aria-labelledby="js2-title">
-    <header class="editor-head">
-      <span class="chip">Bloques · Drag &amp; Drop</span>
-      <h2 id="js2-title">NgxEditorJs2</h2>
-      <p class="editor-desc">Editor por bloques inspirado en Editor.js, construido sobre Angular Material.</p>
-      <p class="editor-hint">
-        Bloques disponibles con <button type="button" class="link-btn" aria-label="Texto explicativo del botón +">＋</button>:
-        párrafo, encabezado, <strong>texto</strong>, <strong>cita</strong>, <strong>lista</strong> y <strong>tabla</strong>.
-        Pasa el ratón sobre un bloque para reordenarlo, borrarlo o cambiar su estilo.
-      </p>
-    </header>
-
-    <div class="js2-host">
-      <ngx-editor-js2
-        [blocks]="js2Blocks"
-        [requestBlocks]="js2RequestNonce"
-        (blocksRequested)="onJs2BlocksRequested($event)"
-        (formChanged)="onJs2FormChanged($event)"
-      ></ngx-editor-js2>
+  <div class="editor-actions">
+    <div class="actions-group">
+      <button mat-flat-button type="button" (click)="publish()">Publicar</button>
+      <button mat-stroked-button type="button" (click)="saveDraft()">Guardar borrador</button>
+      <button mat-button type="button" (click)="newEntry()">Nueva entrada</button>
     </div>
 
-    <div class="output">
-      <div class="output-head">
-        <p class="output-label">Bloques actuales (JSON)</p>
-        <button mat-stroked-button type="button" (click)="requestJs2Blocks()">
-          Solicitar bloques
-        </button>
+    <div class="actions-status">
+      <span class="status-badge" [class.is-published]="status() === 'published'">
+        {{ status() === 'published' ? 'Publicada' : 'Borrador' }}
+      </span>
+      @if (message(); as msg) {
+        <span class="status-message" [class.is-error]="msg.type === 'error'">{{ msg.text }}</span>
+      }
+    </div>
+  </div>
+
+  <div class="editor-layout">
+    <div class="editor-column">
+      <section class="editor-card" aria-labelledby="details-title">
+        <header class="editor-head">
+          <span class="chip">Detalles</span>
+          <h2 id="details-title">Información de la entrada</h2>
+          <p class="editor-desc">Lo que verá el lector antes de abrir el artículo.</p>
+        </header>
+
+        <form class="details-grid" [formGroup]="form">
+          <mat-form-field appearance="outline" class="span-2">
+            <mat-label>Título</mat-label>
+            <input matInput formControlName="title" maxlength="120" placeholder="La voz del café" />
+            @if (form.controls.title.hasError('required') && form.controls.title.touched) {
+              <mat-error>El título es obligatorio.</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="span-2">
+            <mat-label>Slug</mat-label>
+            <input
+              matInput
+              formControlName="slug"
+              placeholder="la-voz-del-cafe"
+              (input)="slugEdited = true"
+            />
+            <mat-hint>URL: /blog/{{ form.controls.slug.value || 'slug' }}</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="span-2">
+            <mat-label>Extracto</mat-label>
+            <textarea
+              matInput
+              formControlName="excerpt"
+              rows="2"
+              maxlength="200"
+              placeholder="Una frase que invite a leer la entrada."
+            ></textarea>
+            <mat-hint align="end">{{ form.controls.excerpt.value.length }}/200</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Autor</mat-label>
+            <input matInput formControlName="author" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="category">
+              @for (category of categories; track category) {
+                <mat-option [value]="category">{{ category }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Etiquetas</mat-label>
+            <input matInput formControlName="tags" placeholder="Huila, Productores" />
+            <mat-hint>Separadas por comas</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Portada</mat-label>
+            <input matInput formControlName="cover" placeholder="☕" />
+            <mat-hint>Emoji o URL de imagen</mat-hint>
+          </mat-form-field>
+        </form>
+      </section>
+
+      <section class="editor-card" aria-labelledby="content-title">
+        <header class="editor-head editor-head-row">
+          <div>
+            <span class="chip">Contenido</span>
+            <h2 id="content-title">Bloques</h2>
+          </div>
+          <p class="editor-stats">{{ wordCount() }} palabras · {{ readTime() }} min</p>
+        </header>
+
+        <p class="editor-hint">
+          Añade bloques con
+          <button type="button" class="link-btn" aria-label="Botón + del editor">＋</button>:
+          párrafo, encabezado, <strong>texto</strong>, <strong>cita</strong>,
+          <strong>lista</strong> y <strong>tabla</strong>. Pasa el ratón sobre un bloque para
+          reordenarlo, borrarlo o cambiar su estilo.
+        </p>
+
+        <div class="js2-host">
+          <ngx-editor-js2
+            [blocks]="initialBlocks()"
+            [requestBlocks]="blocksRequest()"
+            (formChanged)="onFormChanged($event)"
+          ></ngx-editor-js2>
+        </div>
+      </section>
+    </div>
+
+    <aside class="preview-column" aria-label="Vista previa de la entrada">
+      <div class="preview-card">
+        <header class="preview-card-head">
+          <span class="chip">Vista previa</span>
+          <span class="editor-stats">{{ readTime() }} min</span>
+        </header>
+        <app-post-preview [meta]="meta()" [blocks]="currentBlocks()" />
       </div>
-      <pre>{{ js2Output() }}</pre>
-    </div>
-  </section>
+    </aside>
+  </div>
+
+  @if (savedPosts().length > 0) {
+    <section class="editor-card saved-card" aria-labelledby="saved-title">
+      <header class="editor-head editor-head-row">
+        <div>
+          <span class="chip">Archivo</span>
+          <h2 id="saved-title">Entradas guardadas</h2>
+        </div>
+        <p class="editor-stats">{{ savedPosts().length }} en este navegador</p>
+      </header>
+
+      <ul class="saved-list">
+        @for (post of savedPosts(); track post.id) {
+          <li class="saved-item">
+            <button type="button" class="saved-open" (click)="openPost(post)">
+              <span class="saved-title">{{ post.meta.title || 'Sin título' }}</span>
+              <span class="saved-sub">
+                <span class="saved-status" [class.is-published]="post.status === 'published'">
+                  {{ post.status === 'published' ? 'Publicada' : 'Borrador' }}
+                </span>
+                <span>{{ formatDate(post.updatedAt) }}</span>
+                <span>{{ post.meta.category }}</span>
+              </span>
+            </button>
+            <button mat-button type="button" class="saved-delete" (click)="removePost(post)">
+              Eliminar
+            </button>
+          </li>
+        }
+      </ul>
+    </section>
+  }
 
   <nav class="editor-nav" aria-label="Volver al inicio">
     <a class="back" href="/">← Volver al inicio</a>

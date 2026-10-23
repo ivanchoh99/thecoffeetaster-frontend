@@ -1,0 +1,36 @@
+<article class="post-preview">
+  <header class="preview-cover" [class.is-image]="isImageCover()">
+    @if (isImageCover()) {
+      <img [src]="meta().cover" [alt]="meta().title || 'Portada de la entrada'" />
+    } @else {
+      <span aria-hidden="true">{{ meta().cover || '☕' }}</span>
+    }
+  </header>
+
+  <div class="preview-body">
+    <p class="preview-category">{{ meta().category || 'Sin categoría' }}</p>
+    <h1>{{ meta().title || 'Título de la entrada' }}</h1>
+
+    @if (meta().excerpt) {
+      <p class="preview-excerpt">{{ meta().excerpt }}</p>
+    }
+
+    <p class="preview-meta">
+      <span>{{ meta().author || 'Autor' }}</span>
+      <span aria-hidden="true">·</span>
+      <span>{{ dateLabel() }}</span>
+      <span aria-hidden="true">·</span>
+      <span>{{ readTime() }} min de lectura</span>
+    </p>
+
+    @if (tags().length > 0) {
+      <ul class="preview-tags" aria-label="Etiquetas">
+        @for (tag of tags(); track tag) {
+          <li>{{ tag }}</li>
+        }
+      </ul>
+    }
+
+    <div class="preview-content" [innerHTML]="articleHtml()"></div>
+  </div>
+</article>
