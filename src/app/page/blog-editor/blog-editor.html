@@ -1,35 +1,13 @@
 <app-header></app-header>
-<main class="preview-page">
-  <header class="preview-hero">
-    <p class="category">Preview de componentes</p>
-    <h1>Editores de contenido</h1>
+<main class="editor-page">
+  <header class="editor-hero">
+    <p class="category">Editor del blog</p>
+    <h1>Crea tu entrada</h1>
     <p class="lead">
-      Dos editores para las futuras entradas del blog: uno de texto enriquecido
-      y otro por bloques.
+      Escribe por bloques: añade texto, citas, listas y tablas, y reordénalos
+      arrastrando.
     </p>
   </header>
-
-  <section class="editor-card" aria-labelledby="ngx-title">
-    <header class="editor-head">
-      <span class="chip">WYSIWYG · ProseMirror</span>
-      <h2 id="ngx-title">NgxEditor</h2>
-      <p class="editor-desc">Editor de texto con barra completa. El valor se sincroniza con Angular.</p>
-    </header>
-
-    <div class="NgxEditor__Wrapper">
-      <ngx-editor-menu [editor]="ngxEditor!"></ngx-editor-menu>
-      <ngx-editor
-        [editor]="ngxEditor!"
-        [(ngModel)]="ngxHtml"
-        placeholder="Escribe aquí…"
-      ></ngx-editor>
-    </div>
-
-    <div class="output">
-      <p class="output-label">HTML generado</p>
-      <pre>{{ ngxHtml }}</pre>
-    </div>
-  </section>
 
   <section class="editor-card" aria-labelledby="js2-title">
     <header class="editor-head">
@@ -63,7 +41,7 @@
     </div>
   </section>
 
-  <nav class="preview-nav" aria-label="Volver al inicio">
+  <nav class="editor-nav" aria-label="Volver al inicio">
     <a class="back" href="/">← Volver al inicio</a>
   </nav>
 </main>

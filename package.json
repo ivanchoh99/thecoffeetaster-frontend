@@ -36,7 +36,6 @@
     "@tmdjr/ngx-editor-js2": "^21.0.9",
     "express": "^5.1.0",
     "grapesjs": "^0.23.6",
-    "ngx-editor": "^18.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

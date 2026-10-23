@@ -18,7 +18,7 @@ interface NavLink {
 export class Navbar {
   readonly links: NavLink[] = [
     { label: 'Inicio', path: '/' },
-    { label: 'Preview', path: '/preview' },
+    { label: 'Editor', path: '/blog/editor' },
   ];
 
   protected readonly soloExacto = { exact: true };

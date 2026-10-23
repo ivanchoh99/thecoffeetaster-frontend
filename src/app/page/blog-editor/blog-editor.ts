@@ -1,37 +1,24 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { NgxEditorJs2Component, NgxEditorJsBlock } from '@tmdjr/ngx-editor-js2';
-import { Editor, NgxEditorModule } from 'ngx-editor';
 import { Observable } from 'rxjs';
 import { Header } from '../../components/header/header';
 
 @Component({
-  selector: 'app-preview',
-  imports: [
-    Header,
-    FormsModule,
-    MatButtonModule,
-    NgxEditorJs2Component,
-    NgxEditorModule,
-  ],
-  templateUrl: './preview.html',
-  styleUrl: './preview.scss',
+  selector: 'app-blog-editor',
+  imports: [Header, MatButtonModule, NgxEditorJs2Component],
+  templateUrl: './blog-editor.html',
+  styleUrl: './blog-editor.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Preview implements OnInit, OnDestroy {
-  protected ngxEditor: Editor | null = null;
-  protected ngxHtml: string =
-    '<p>Hola, <b>TheCoffeeTaster</b>! Esta es la demo de <b>NgxEditor</b>, el editor enriquecido de ProseMirror.</p>' +
-    '<p>Prueba a escribir, marcar <i>itálicas</i> o insertar una cita.</p>';
-
+export class BlogEditor {
   protected readonly js2Blocks: NgxEditorJsBlock[] = [
     {
       blockId: 'js2-1',
       sortIndex: 0,
-      componentInstanceName: 'HeaderBlockComponent',
-      savedAction: 'h2',
-      dataClean: '☕ NgxEditorJs2',
+      componentInstanceName: 'TextBlockComponent',
+      savedAction: 'title-medium',
+      dataClean: '☕ Escribe tu entrada',
     },
     {
       blockId: 'js2-2',
@@ -68,15 +55,6 @@ export class Preview implements OnInit, OnDestroy {
 
   protected js2RequestNonce = 0;
   protected readonly js2Output = signal('');
-
-  ngOnInit(): void {
-    this.ngxEditor = new Editor();
-  }
-
-  ngOnDestroy(): void {
-    this.ngxEditor?.destroy();
-    this.ngxEditor = null;
-  }
 
   protected requestJs2Blocks(): void {
     this.js2RequestNonce++;
