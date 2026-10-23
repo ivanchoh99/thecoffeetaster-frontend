@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @use './theme-colors' as theme;
+@use '@tmdjr/ngx-editor-js2/styles/drag-preview';
 
 html {
   height: 100%;

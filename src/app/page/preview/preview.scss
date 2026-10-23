@@ -1,0 +1,215 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  background: var(--brand-hueso);
+}
+
+.preview-page {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 max(1.25rem, calc((100% - 60rem) / 2)) 3rem;
+  color: var(--brand-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  overflow-x: clip;
+}
+
+.preview-hero {
+  padding: clamp(2.5rem, 7vw, 4rem) 0 clamp(1.5rem, 4vw, 2.25rem);
+  text-align: center;
+
+  h1 {
+    margin: 0.5rem auto;
+    max-width: 20ch;
+    font-size: clamp(1.6rem, 1.2rem + 3vw, 2.4rem);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    color: var(--brand-ink);
+    text-wrap: balance;
+  }
+}
+
+.category {
+  display: inline-block;
+  margin: 0 0 0.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--brand-ochre);
+  background: rgba(201, 162, 39, 0.14);
+  border: 1px solid rgba(180, 83, 9, 0.25);
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+}
+
+.lead {
+  margin: 0 auto;
+  max-width: 52ch;
+  color: var(--brand-muted);
+  text-wrap: pretty;
+}
+
+/* ---------- Cards de editor ---------- */
+
+.editor-card {
+  box-sizing: border-box;
+  margin-bottom: 1.5rem;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  background: var(--brand-parchment);
+  border: 1px solid var(--brand-arena);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(146, 96, 15, 0.08);
+}
+
+.editor-head {
+  margin-bottom: 1.25rem;
+
+  h2 {
+    margin: 0.4rem 0 0.25rem;
+    font-size: 1.35rem;
+    color: var(--brand-ink);
+  }
+}
+
+.editor-desc {
+  margin: 0;
+  max-width: 60ch;
+  font-size: 0.94rem;
+  color: var(--brand-muted);
+}
+
+.editor-hint {
+  margin: 0.5rem 0 0;
+  max-width: 62ch;
+  font-size: 0.88rem;
+  color: var(--brand-soft);
+}
+
+.link-btn {
+  display: inline-block;
+  width: 1.15rem;
+  height: 1.15rem;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: var(--mat-sys-tertiary-container);
+  color: var(--mat-sys-on-tertiary-container);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.chip {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-clay);
+  background: rgba(201, 162, 39, 0.12);
+  border: 1px solid rgba(180, 83, 9, 0.25);
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+}
+
+.js2-host {
+  border: 1px solid var(--brand-arena);
+  border-radius: 12px;
+  background: var(--brand-hueso);
+  padding: 0.75rem;
+
+  > * {
+    display: block;
+  }
+}
+
+/* ---------- NgxEditor: acordes con la paleta ---------- */
+
+.editor-card .NgxEditor__Wrapper {
+  --ngx-editor-border-radius: 12px;
+  --ngx-editor-background-color: var(--brand-hueso);
+  --ngx-editor-border-color: var(--brand-arena);
+  --ngx-editor-wrapper-border-color: var(--brand-arena);
+  --ngx-editor-menubar-bg-color: var(--brand-vainilla);
+  --ngx-editor-menubar-padding: 6px;
+  --ngx-editor-placeholder-color: var(--brand-muted);
+  --ngx-editor-blockquote-color: var(--brand-arena);
+  --ngx-editor-blockquote-border-width: 3px;
+  --ngx-editor-menu-item-active-color: var(--brand-clay);
+  --ngx-editor-menu-item-active-bg-color: var(--brand-vainilla);
+  --ngx-editor-menu-item-hover-bg-color: var(--brand-tint);
+  --ngx-editor-focus-ring-color: var(--brand-dorado);
+
+  .NgxEditor__Content {
+    min-height: 180px;
+    font-family: inherit;
+  }
+}
+
+/* ---------- Salida de la demo ---------- */
+
+.output {
+  margin-top: 1.25rem;
+}
+
+.output-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.output-label {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand-ochre);
+}
+
+.output pre {
+  overflow-x: auto;
+  margin: 0.6rem 0 0;
+  padding: 1rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: var(--brand-vainilla);
+  border: 1px solid var(--brand-arena);
+  border-radius: 10px;
+  color: var(--brand-soft);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.preview-nav {
+  margin-top: 0.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--brand-arena);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 600;
+  color: var(--brand-clay);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--brand-ember);
+    text-decoration: underline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none;
+  }
+}

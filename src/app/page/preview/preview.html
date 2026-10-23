@@ -1,0 +1,69 @@
+<app-header></app-header>
+<main class="preview-page">
+  <header class="preview-hero">
+    <p class="category">Preview de componentes</p>
+    <h1>Editores de contenido</h1>
+    <p class="lead">
+      Dos editores para las futuras entradas del blog: uno de texto enriquecido
+      y otro por bloques.
+    </p>
+  </header>
+
+  <section class="editor-card" aria-labelledby="ngx-title">
+    <header class="editor-head">
+      <span class="chip">WYSIWYG · ProseMirror</span>
+      <h2 id="ngx-title">NgxEditor</h2>
+      <p class="editor-desc">Editor de texto con barra completa. El valor se sincroniza con Angular.</p>
+    </header>
+
+    <div class="NgxEditor__Wrapper">
+      <ngx-editor-menu [editor]="ngxEditor!"></ngx-editor-menu>
+      <ngx-editor
+        [editor]="ngxEditor!"
+        [(ngModel)]="ngxHtml"
+        placeholder="Escribe aquí…"
+      ></ngx-editor>
+    </div>
+
+    <div class="output">
+      <p class="output-label">HTML generado</p>
+      <pre>{{ ngxHtml }}</pre>
+    </div>
+  </section>
+
+  <section class="editor-card" aria-labelledby="js2-title">
+    <header class="editor-head">
+      <span class="chip">Bloques · Drag &amp; Drop</span>
+      <h2 id="js2-title">NgxEditorJs2</h2>
+      <p class="editor-desc">Editor por bloques inspirado en Editor.js, construido sobre Angular Material.</p>
+      <p class="editor-hint">
+        Bloques disponibles con <button type="button" class="link-btn" aria-label="Texto explicativo del botón +">＋</button>:
+        párrafo, encabezado, <strong>texto</strong>, <strong>cita</strong>, <strong>lista</strong> y <strong>tabla</strong>.
+        Pasa el ratón sobre un bloque para reordenarlo, borrarlo o cambiar su estilo.
+      </p>
+    </header>
+
+    <div class="js2-host">
+      <ngx-editor-js2
+        [blocks]="js2Blocks"
+        [requestBlocks]="js2RequestNonce"
+        (blocksRequested)="onJs2BlocksRequested($event)"
+        (formChanged)="onJs2FormChanged($event)"
+      ></ngx-editor-js2>
+    </div>
+
+    <div class="output">
+      <div class="output-head">
+        <p class="output-label">Bloques actuales (JSON)</p>
+        <button mat-stroked-button type="button" (click)="requestJs2Blocks()">
+          Solicitar bloques
+        </button>
+      </div>
+      <pre>{{ js2Output() }}</pre>
+    </div>
+  </section>
+
+  <nav class="preview-nav" aria-label="Volver al inicio">
+    <a class="back" href="/">← Volver al inicio</a>
+  </nav>
+</main>
