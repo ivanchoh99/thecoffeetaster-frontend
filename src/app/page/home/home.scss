@@ -1,341 +1,519 @@
 @use '@angular/material' as mat;
 
 :host {
+  // Punto medio: la calidez de la paleta original en una base más editorial.
+  --paper: #f9f2e4;
+  --paper-soft: #f1e7d5;
+  --ink: #2b2119;
+  --muted: #6a5644;
+  --line: #ded0b8;
+  --accent: #96631f;
+  --gold: #c9a227;
+  --dark: #2e2118;
+  --dark-text: #f7f2e8;
+  --dark-gold: #d9b98a;
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
   display: block;
   min-height: 100vh;
   min-height: 100svh;
   min-height: 100dvh;
-  background: var(--mat-sys-surface-container-low, #faf7f2);
+  background: var(--paper);
 }
 
 .home-page {
   box-sizing: border-box;
   width: 100%;
   margin: 0;
-  padding: 0 0 0;
-  color: var(--brand-body, #292524);
+  padding: 0;
+  overflow-x: clip;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.7;
-  background: var(--mat-sys-surface-container-low, #faf7f2);
-  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* ---------- Hero a sangre completa ---------- */
+/* ---------- Elementos comunes ---------- */
 
-.hero {
-  box-sizing: border-box;
-  width: 100%;
-  text-align: center;
-  padding:
-    clamp(3rem, 8vw, 5.5rem)
-    max(1.25rem, calc((100% - 56rem) / 2))
-    clamp(2.5rem, 6vw, 4rem);
-  color: var(--brand-hueso, #f5ede0);
-  background: var(--brand-espresso, #4a2c17);
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 
-  h1 {
-    margin: 0.75rem auto;
-    max-width: 20ch;
-    font-size: clamp(2.1rem, 1.4rem + 5vw, 3.4rem);
-    line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: var(--brand-crema, #fff8eb);
-    text-wrap: balance;
+  &::before {
+    flex: none;
+    width: 1.75rem;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.8;
+    content: '';
   }
 }
 
-.badge {
-  display: inline-block;
-  margin: 0 0 0.5rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--brand-gold, #ffd98a);
-  background: rgba(232, 201, 122, 0.14);
-  border: 1px solid rgba(255, 217, 138, 0.45);
-  padding: 0.4rem 0.9rem;
-  border-radius: 999px;
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  box-sizing: border-box;
+  max-width: 78rem;
+  margin: 0 auto;
+  padding:
+    clamp(3.5rem, 9vw, 7rem)
+    clamp(1.25rem, 4vw, 3rem)
+    0;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(18rem, 0.85fr);
+  align-items: end;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  margin-top: 0.85rem;
+}
+
+.hero h1 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(3.6rem, 10.5vw, 8.2rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.88;
+}
+
+.hero-aside {
+  padding-bottom: 0.4rem;
 }
 
 .subtitle {
-  margin: 0 auto 1.75rem;
-  max-width: 54ch;
-  color: rgba(245, 237, 224, 0.85);
-  font-size: clamp(0.95rem, 0.9rem + 0.8vw, 1.08rem);
+  max-width: 40ch;
+  margin: 0 0 1.6rem;
+  color: var(--muted);
+  font-size: clamp(0.98rem, 0.92rem + 0.35vw, 1.12rem);
+  line-height: 1.7;
   text-wrap: pretty;
 
-  strong {
-    color: var(--brand-gold, #ffd98a);
-    font-weight: 600;
+  em {
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-style: italic;
   }
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: center;
+  gap: 0.6rem;
 }
 
-/* CTAs del hero con Angular Material: el dorado sale del rol secondary del tema
-   (M3 ya aporta pill, ripple, foco y estados hover/pressed). */
-
-.btn-gold {
-  @include mat.button-overrides((
-    filled-container-color: var(--mat-sys-secondary-container),
-    filled-label-text-color: var(--mat-sys-on-secondary-container),
-    filled-state-layer-color: var(--mat-sys-on-secondary-container),
-    filled-ripple-color: rgba(32, 21, 16, 0.2),
-  ));
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.72rem 1.15rem;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  font-size: 0.7rem;
   font-weight: 600;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
 }
 
-.btn-ghost {
-  @include mat.button-overrides((
-    outlined-outline-color: var(--mat-sys-secondary-container),
-    outlined-label-text-color: var(--mat-sys-secondary-container),
-    outlined-state-layer-color: var(--mat-sys-secondary-container),
-    outlined-ripple-color: rgba(255, 217, 138, 0.25),
-  ));
-  font-weight: 600;
+.btn--solid {
+  background: var(--ink);
+  color: var(--paper);
+
+  &:hover {
+    border-color: var(--brand-roast, #5a3a22);
+    background: var(--brand-roast, #5a3a22);
+    color: #fffaf2;
+  }
 }
 
-/* ---------- Secciones a viewport completo ---------- */
+.btn--ghost {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--ink);
+
+  &:hover {
+    border-color: var(--ink);
+  }
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: clamp(2.5rem, 6vw, 4.5rem);
+  padding: 0.85rem 0 1.1rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* ---------- Secciones ---------- */
 
 .section {
-  box-sizing: border-box;
-  width: 100%;
+  border-top: 1px solid var(--line);
+}
+
+.section-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  gap: clamp(1.5rem, 5vw, 5rem);
+  max-width: 78rem;
+  margin: 0 auto;
   padding:
-    clamp(2.5rem, 6vw, 4rem)
-    max(1.25rem, calc((100% - 72rem) / 2));
-  scroll-margin-top: 1rem;
+    clamp(3.5rem, 8vw, 6.5rem)
+    clamp(1.25rem, 4vw, 3rem);
+}
+
+.section-head {
+  align-self: start;
 
   h2 {
-    margin: 0.35rem 0 0.7rem;
-    max-width: 24ch;
-    font-size: clamp(1.4rem, 1.1rem + 2.5vw, 2rem);
-    letter-spacing: -0.015em;
-    line-height: 1.2;
-    color: var(--brand-ink, #1c1917);
+    max-width: 14ch;
+    margin: 0.7rem 0 0;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4.2vw, 3.3rem);
+    font-weight: 400;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
     text-wrap: balance;
   }
 }
 
-.section--tint {
-  background: var(--brand-leche);
-  border-block: 1px solid var(--brand-arena);
-}
-
-.section--dark {
-  background: var(--brand-roast, #5a3a22);
-  color: var(--brand-hueso, #f5ede0);
-
-  h2 {
-    color: var(--brand-crema, #fff8eb);
-  }
-
-  .eyebrow {
-    color: var(--brand-gold, #ffd98a);
-  }
-
-  .lead {
-    color: rgba(245, 237, 224, 0.78);
-
-    strong {
-      color: var(--brand-gold, #ffd98a);
-    }
-  }
-}
-
-.eyebrow {
-  margin: 0;
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--brand-ochre, #92600f);
-  font-weight: 700;
+.section-body {
+  min-width: 0;
 }
 
 .lead {
-  margin: 0 0 1.5rem;
-  max-width: 68ch;
-  color: var(--brand-muted, #57534e);
+  max-width: 52ch;
+  margin: 0 0 2.5rem;
+  color: var(--muted);
+  font-size: clamp(1.05rem, 1rem + 0.4vw, 1.28rem);
+  line-height: 1.6;
   text-wrap: pretty;
 
   strong {
-    color: var(--brand-body, #292524);
+    color: var(--ink);
   }
 }
 
-/* ---------- Cards ---------- */
+/* ---------- Cards editoriales ---------- */
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
 }
 
 .card {
   @include mat.card-overrides((
-    outlined-container-color: var(--brand-parchment),
-    outlined-outline-color: var(--brand-arena),
+    outlined-container-color: transparent,
+    outlined-outline-color: transparent,
   ));
-  border-top: 4px solid var(--brand-dorado);
-  border-radius: 14px;
-  padding: 1.25rem 1.15rem;
-  box-shadow: 0 2px 8px rgba(41, 37, 36, 0.06);
+
+  padding: 1.5rem 1.5rem 1.7rem 0;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transition: background 0.2s ease;
+
+  &:nth-child(2n) {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  &:hover {
+    background: rgba(74, 44, 23, 0.025);
+  }
 
   h3 {
-    margin: 0.4rem 0 0.4rem;
-    font-size: 1rem;
-    color: var(--brand-ink);
+    margin: 0.55rem 0 0.45rem;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 1rem + 0.2vw, 1.2rem);
+    font-weight: 500;
+    line-height: 1.25;
   }
 
   p {
     margin: 0;
-    font-size: 0.92rem;
-    line-height: 1.6;
-    color: var(--brand-muted);
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.65;
   }
 }
 
 .card-index {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--brand-clay);
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+.status {
+  margin: 0 0 0.6rem;
+  color: var(--accent);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 /* ---------- Quién soy ---------- */
 
-.about-card {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  margin-top: 1.5rem;
-  background: var(--brand-parchment, #fffdf9);
-  border: 1px solid var(--brand-arena);
-  border-radius: 16px;
-  padding: clamp(1.25rem, 4vw, 2rem);
-  box-shadow: 0 4px 16px rgba(146, 96, 15, 0.1);
+.section--about {
+  background: var(--paper-soft);
+}
 
-  @media (min-width: 640px) {
-    flex-direction: row;
-    align-items: flex-start;
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 13rem) minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(1.5rem, 3.5vw, 3.5rem);
+}
+
+.about-portrait {
+  margin: 0;
+
+  figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    margin-top: 1rem;
+    color: var(--muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+  }
+
+  strong {
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 500;
+    letter-spacing: 0;
   }
 }
 
 .monogram {
-  flex-shrink: 0;
-  width: 80px;
-  height: 80px;
   display: block;
-  object-fit: cover;
-  object-position: center 20%;
+  width: clamp(8rem, 18vw, 11rem);
+  height: auto;
+  aspect-ratio: 1;
   border-radius: 50%;
   box-shadow:
-    0 6px 16px rgba(74, 44, 23, 0.38),
-    0 2px 4px rgba(74, 44, 23, 0.28);
+    0 18px 42px rgba(27, 24, 21, 0.22),
+    0 2px 6px rgba(27, 24, 21, 0.12);
+  object-fit: cover;
+  object-position: center 20%;
 }
 
 .about-body {
-  min-width: 0;
-
-  h3 {
-    margin: 0;
-    font-size: 1.1rem;
-    color: var(--brand-ink, #1c1917);
-  }
-
-  .role {
-    margin: 0.2rem 0 0.9rem;
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--brand-clay, #b45309);
-    font-weight: 700;
-  }
+  max-width: 60ch;
 
   p {
-    margin: 0 0 0.9rem;
-    font-size: 0.94rem;
-    color: var(--brand-soft, #44403c);
+    margin: 0 0 1.05rem;
+    color: var(--muted);
+    line-height: 1.8;
+  }
 
-    strong {
-      color: var(--brand-ink, #1c1917);
-    }
+  strong {
+    color: var(--ink);
+    font-weight: 600;
   }
 
   blockquote {
-    margin: 1rem 0 0;
-    padding: 0.7rem 1rem;
-    border-left: 4px solid var(--brand-ember, #c2410c);
-    background: rgba(194, 65, 12, 0.08);
-    border-radius: 0 10px 10px 0;
+    max-width: 30ch;
+    margin: clamp(1.75rem, 4vw, 2.5rem) 0 0;
+    padding: 1.25rem 0 0;
+    border-top: 1px solid var(--line);
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 1rem + 0.5vw, 1.3rem);
     font-style: italic;
-    font-size: 0.93rem;
-    color: var(--brand-soft, #44403c);
+    line-height: 1.45;
   }
 }
 
-/* ---------- Futuro sobre fondo oscuro ---------- */
-
-.section--dark .card {
-  @include mat.card-overrides((
-    outlined-container-color: rgba(255, 248, 235, 0.07),
-    outlined-outline-color: rgba(245, 237, 224, 0.16),
-  ));
-  border-top: 4px solid var(--brand-gold);
-  box-shadow: none;
-
-  h3 {
-    color: var(--brand-crema);
-  }
-
-  p {
-    color: rgba(245, 237, 224, 0.75);
-  }
+.about-intro {
+  margin: 0 0 1.25rem !important;
+  color: var(--ink) !important;
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 1.05rem + 0.6vw, 1.5rem);
+  line-height: 1.45 !important;
 }
 
-.card .status {
-  display: inline-block;
-  margin: 0 0 0.45rem;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--brand-ochre, #92600f);
-  background: rgba(201, 162, 39, 0.16);
-  border: 1px solid rgba(180, 83, 9, 0.3);
-  padding: 0.22rem 0.6rem;
-  border-radius: 999px;
-}
+/* ---------- A futuro (banda oscura) ---------- */
 
-.section--dark .card .status {
-  color: var(--brand-gold);
-  background: rgba(255, 217, 138, 0.12);
-  border-color: rgba(255, 217, 138, 0.35);
+.section--dark {
+  border-top: 0;
+  background: var(--dark);
+  color: var(--dark-text);
+
+  .eyebrow {
+    color: var(--dark-gold);
+  }
+
+  .section-head h2 {
+    color: var(--dark-text);
+  }
+
+  .lead {
+    color: rgba(247, 242, 232, 0.68);
+
+    strong {
+      color: #fffaf2;
+    }
+  }
+
+  .grid {
+    border-top-color: rgba(247, 242, 232, 0.18);
+  }
+
+  .card {
+    border-color: rgba(247, 242, 232, 0.18);
+
+    &:hover {
+      background: rgba(255, 248, 235, 0.04);
+    }
+
+    h3 {
+      color: var(--dark-text);
+    }
+
+    p {
+      color: rgba(247, 242, 232, 0.64);
+    }
+  }
+
+  .card-index,
+  .status {
+    color: var(--dark-gold);
+  }
 }
 
 /* ---------- Footer ---------- */
 
 .footer {
-  box-sizing: border-box;
-  width: 100%;
-  text-align: center;
-  padding: 2rem max(1.25rem, calc((100% - 72rem) / 2)) 2.5rem;
-  background: var(--brand-toast, #3a2718);
-  color: rgba(245, 237, 224, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 78rem;
+  margin: 0 auto;
+  padding: 1.5rem clamp(1.25rem, 4vw, 3rem) 2.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
 
   p {
     margin: 0;
-    font-size: 0.8rem;
-    text-wrap: balance;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * {
-    transition: none;
+.footer-mark {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (min-width: 960px) {
+  .section-head {
+    position: sticky;
+    top: 5.5rem;
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.2rem, 13vw, 6rem);
+  }
+
+  .hero-aside {
+    max-width: 44rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .section-inner {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .section-head h2 {
+    max-width: 20ch;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero-meta {
+    flex-wrap: wrap;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card,
+  .card:nth-child(2n) {
+    padding-right: 0;
+    border-right: 0;
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+  }
+
+  .about-portrait {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    figcaption {
+      margin-top: 0;
+    }
+  }
+
+  .monogram {
+    width: 6.5rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 }
