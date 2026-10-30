@@ -36,6 +36,14 @@ ng build
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
+## Documentación de estilo
+
+La guía de estilo, trazabilidad y replicabilidad visual del proyecto está en:
+
+- [`docs/GUIA-ESTILO.md`](docs/GUIA-ESTILO.md)
+
+Incluye paleta, tipografía, layout, patrones de componentes, matriz de trazabilidad, checklist de verificación y pasos para reconstruir el tema desde cero.
+
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
