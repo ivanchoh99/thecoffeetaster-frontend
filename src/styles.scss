@@ -1,21 +1,52 @@
-
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
+@use './theme-colors' as theme;
+@use '@tmdjr/ngx-editor-js2/styles/drag-preview';
 
 html {
   height: 100%;
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+  // secondary no se pasa aparte: mat.theme() lo lee del propio palette primary
+  // (el archivo generado ya lo mergea dentro de $primary-palette).
+  @include mat.theme((color: (theme-type: light,
+          primary: theme.$primary-palette,
+          tertiary: theme.$tertiary-palette,
+        ),
+        typography: Roboto,
+        density: 0,
+      ));
+}
+
+:root {
+  // Paleta de marca TheCoffeeTaster (puente café -> beige -> crema).
+  // Seeds de _theme-colors.scss (regenerar con ng generate @angular/material:theme-color):
+  // primary #4A2C17 (espresso), secondary #C9A227 (dorado),
+  // tertiary #C8A06A (latte), neutral #EFE0C2, neutral-variant #FBF0D9
+  --brand-espresso: #4a2c17;
+  --brand-roast: #5a3a22;
+  --brand-toast: #3a2718;
+  --brand-coffee: #6f4e37;
+  --brand-cortado: #8c6242;
+  --brand-latte: #c8a06a;
+  --brand-honey: #e8c97a;
+  --brand-dorado: #c9a227;
+  --brand-gold: #ffd98a;
+  --brand-gold-hover: #ffe3a8;
+  --brand-arena: #e2c799;
+  --brand-leche: #efe0c2;
+  --brand-tint: #f6ead3;
+  --brand-sand: #e5d5b3;
+  --brand-linen: #e7e0d3;
+  --brand-parchment: #fffdf9;
+  --brand-vainilla: #fbf0d9;
+  --brand-crema: #fff8eb;
+  --brand-hueso: #f5ede0;
+  --brand-ink: #1c1917;
+  --brand-body: #292524;
+  --brand-coal: #201510;
+  --brand-muted: #57534e;
+  --brand-soft: #44403c;
+  --brand-ochre: #92600f;
+  --brand-clay: #b45309;
+  --brand-ember: #c2410c;
 }
 
 body {
@@ -35,4 +66,5 @@ body {
   margin: 0;
   height: 100%;
 }
+
 /* You can add global styles to this file, and also import other style files */

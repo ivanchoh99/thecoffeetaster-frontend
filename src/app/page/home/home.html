@@ -1,0 +1,128 @@
+<app-header></app-header>
+<main class="home-page">
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <p class="eyebrow">Desde cero, taza a taza</p>
+    <div class="hero-grid">
+      <h1 id="hero-title">The Coffee<br />Taster</h1>
+      <div class="hero-aside">
+        <p class="subtitle">
+          Un espacio para registrar <em>marcas, cafés, variedades y formas de
+            prepararlos</em> de manera sencilla, y compartirlo con los demás.
+        </p>
+        <nav class="hero-actions" aria-label="Secciones principales">
+          <a class="btn btn--solid" href="#proposito">
+            Ver el propósito
+            <span aria-hidden="true">→</span>
+          </a>
+          <a class="btn btn--ghost" href="#quien-soy">Quién soy</a>
+        </nav>
+      </div>
+    </div>
+    <div class="hero-meta" aria-hidden="true">
+      <span>Registro personal de café</span>
+      <span>{{ currentYear }}</span>
+    </div>
+  </section>
+
+  <!-- PROPOSITO -->
+  <section id="proposito" class="section" aria-labelledby="proposito-title">
+    <div class="section-inner">
+      <div class="section-head">
+        <p class="eyebrow">01 — Propósito inicial</p>
+        <h2 id="proposito-title">Registrar el café sin complicarlo</h2>
+      </div>
+
+      <div class="section-body">
+        <p class="lead">
+          Esta página nace para llevar un registro claro de lo que pruebas
+          y poder compartirlo. Nada de jerga intimidante: si cabe en una
+          libreta, cabe aquí.
+        </p>
+
+        <div class="grid">
+          @for (pillar of pillars; track pillar.title) {
+          <mat-card class="card" appearance="outlined">
+            <span class="card-index" aria-hidden="true">{{ pillar.index }}</span>
+            <h3>{{ pillar.title }}</h3>
+            <p>{{ pillar.text }}</p>
+          </mat-card>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIEN SOY -->
+  <section id="quien-soy" class="section section--about" aria-labelledby="quien-soy-title">
+    <div class="section-inner">
+      <div class="section-head">
+        <p class="eyebrow">02 — Quién soy</p>
+        <h2 id="quien-soy-title">Hola, estoy aprendiendo contigo</h2>
+      </div>
+
+      <div class="section-body about">
+        <figure class="about-portrait">
+          <img class="monogram" src="ivan.webp" alt="Retrato de Iván Carvajal" width="80" height="80" />
+          <figcaption>
+            <strong>Iván Carvajal</strong>
+            <span>Principiante en el mundo del café</span>
+          </figcaption>
+        </figure>
+
+        <div class="about-body">
+          <p class="about-intro">
+            Soy un inexperto que recién empieza a incursionar en el mundo del café.
+            No soy barista ni catador: soy una persona curiosa que quiere cada día
+            aprender un poco más, desde la perspectiva de alguien que parte desde cero.
+          </p>
+          <p>
+            Creé esta página para <strong>aprender documentando</strong>: cada marca que
+            pruebo, cada variedad que descubro y cada método que intento queda registrado
+            aquí. Si a ti también te intimida el café de especialidad, este es tu lugar.
+          </p>
+          <p>
+            Soy de Huila, Colombia y conocer un poco más de lo que produce mi región me
+            ha hecho valorar más el café. Por eso, en este espacio también quiero
+            <strong>apoyar a los productores locales</strong> y darles visibilidad.
+          </p>
+          <blockquote>
+            “Si yo empiezo a registrar y compartirlo, cualquiera puede.”
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUTURO -->
+  <section id="futuro" class="section section--dark" aria-labelledby="futuro-title">
+    <div class="section-inner">
+      <div class="section-head">
+        <p class="eyebrow">03 — A futuro</p>
+        <h2 id="futuro-title">Hacia dónde va TheCoffeeTaster</h2>
+      </div>
+
+      <div class="section-body">
+        <p class="lead">
+          Hoy es un blog para registrar y compartir. Mañana, una comunidad
+          completa para aprender, sin perder la simplicidad del inicio.
+        </p>
+
+        <div class="grid">
+          @for (goal of goals; track goal.title) {
+          <mat-card class="card" appearance="outlined">
+            <p class="status">{{ goal.status }}</p>
+            <h3>{{ goal.title }}</h3>
+            <p>{{ goal.text }}</p>
+          </mat-card>
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span class="footer-mark">TheCoffeeTaster</span>
+    <p>© {{ currentYear }} · Aprendiendo de café desde cero, una taza a la vez.</p>
+  </footer>
+</main>

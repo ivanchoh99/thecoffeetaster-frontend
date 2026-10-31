@@ -1,0 +1,53 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  justify-content: center;
+  min-height: 4.25rem;
+  border-bottom: 1px solid #ded0b8;
+  background: rgba(249, 242, 228, 0.92);
+  backdrop-filter: blur(10px);
+  color: var(--brand-toast, #2b2119);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: inherit;
+  text-decoration: none;
+
+  /* Hover sobrio a juego con el fondo papel */
+  --mat-button-text-label-text-color: var(--brand-toast, #2b2119);
+  --mat-button-text-hover-state-layer-color: rgba(43, 33, 25, 0.06);
+  --mat-button-text-focus-state-layer-color: rgba(43, 33, 25, 0.09);
+  --mat-button-text-pressed-state-layer-color: rgba(43, 33, 25, 0.12);
+  --mat-button-ripple-color: rgba(43, 33, 25, 0.14);
+}
+
+.monogram {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--brand-toast, #2b2119);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.wordmark {
+  font-family: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  font-size: 1.12rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
