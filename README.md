@@ -12,6 +12,33 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
+## Autenticación (login)
+
+La feature de login usa una API de autenticación que aún no tiene backend.
+Para desarrollar en local hay un **mock de API** incluido en el repositorio:
+
+```bash
+pnpm mock:api     # terminal 1 → http://127.0.0.1:3000
+pnpm start        # terminal 2 → http://localhost:4200
+```
+
+El proxy de desarrollo (`proxy.conf.json`) reenvía las peticiones `/api/*` del
+servidor de Angular al mock, de modo que la app usa las mismas rutas relativas
+que en producción.
+
+Usuarios seed del mock:
+
+| Email | Contraseña |
+| :--- | :--- |
+| `autor@thecoffeetaster.com` | `Cafe#Segur0!2026` |
+| `editor@thecoffeetaster.com` | `Prensa#Cafe2026!` |
+
+Detalle del contrato y de las reglas replicadas en
+[`mock-server/README.md`](mock-server/README.md).
+
+La especificación completa de la feature está en
+[`.context/features/login/`](.context/features/login/).
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:

@@ -1,0 +1,37 @@
+.placeholder-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: calc(100vh - 4.25rem);
+  padding: clamp(3rem, 8vw, 5rem) 1.25rem;
+  background: var(--brand-hueso, #f5ede0);
+  color: var(--brand-muted, #57534e);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+.placeholder-page h1 {
+  margin: 0;
+  color: var(--brand-ink, #1c1917);
+  font-family: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.placeholder-page p {
+  margin: 0;
+  max-width: 34rem;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+.placeholder-page__id {
+  color: var(--brand-ochre, #92600f);
+  font-size: 0.8125rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}

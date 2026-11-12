@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "mock:api": "node mock-server/server.mjs",
     "serve:ssr:thecoffetaster-frontend": "node dist/thecoffetaster-frontend/server/server.mjs"
   },
   "prettier": {

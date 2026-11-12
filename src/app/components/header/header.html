@@ -1,6 +1,75 @@
 <mat-toolbar class="site-header">
-  <a class="brand" href="/" aria-label="TheCoffeeTaster — inicio">
+  <a class="brand" routerLink="/" aria-label="TheCoffeeTaster — inicio">
     <span class="monogram" aria-hidden="true">CT</span>
     <span class="wordmark">TheCoffeeTaster</span>
   </a>
+
+  <div class="auth-area">
+    @if (auth.isAuthenticated()) {
+      <!-- Estado con sesión: nombre + menú desplegable (HU-04) -->
+      <div class="user-menu">
+        <button
+          #menuTrigger
+          type="button"
+          class="user-menu__trigger"
+          aria-haspopup="menu"
+          [attr.aria-controls]="menuOpen() ? 'user-menu-dropdown' : null"
+          [attr.aria-expanded]="menuOpen()"
+          (click)="toggleMenu($event)"
+          (keydown)="onMenuKeydown($event)"
+        >
+          <span class="user-menu__name" [title]="displayName()">{{ displayName() }}</span>
+          <span class="material-icons user-menu__caret" aria-hidden="true">expand_more</span>
+        </button>
+
+        @if (menuOpen()) {
+          <div class="user-menu__dropdown" id="user-menu-dropdown" role="menu">
+            <button type="button" class="user-menu__item" role="menuitem" (click)="logout()">
+              {{ messages.headerLogout }}
+            </button>
+          </div>
+        }
+      </div>
+    } @else {
+      <!-- Estado sin sesión: botón de acceso (HU-04) -->
+      <a class="auth-button" routerLink="/login" [queryParams]="loginQueryParams()">
+        {{ messages.headerLogin }}
+      </a>
+    }
+
+    <!-- Menú hamburguesa para móvil (UX §9) -->
+    <button
+      #hamburger
+      type="button"
+      class="hamburger"
+      aria-haspopup="menu"
+      [attr.aria-controls]="mobileMenuOpen() ? 'mobile-menu' : null"
+      [attr.aria-expanded]="mobileMenuOpen()"
+      aria-label="Menú de autenticación"
+      (click)="toggleMobileMenu($event)"
+    >
+      <span class="material-icons" aria-hidden="true">menu</span>
+    </button>
+  </div>
+
+  @if (mobileMenuOpen()) {
+    <div class="mobile-menu" id="mobile-menu" role="menu">
+      @if (auth.isAuthenticated()) {
+        <span class="mobile-menu__user">{{ displayName() }}</span>
+        <button type="button" class="mobile-menu__item" role="menuitem" (click)="logout()">
+          {{ messages.headerLogout }}
+        </button>
+      } @else {
+        <a
+          class="mobile-menu__item"
+          role="menuitem"
+          routerLink="/login"
+          [queryParams]="loginQueryParams()"
+          (click)="closeMenus()"
+        >
+          {{ messages.headerLogin }}
+        </a>
+      }
+    </div>
+  }
 </mat-toolbar>

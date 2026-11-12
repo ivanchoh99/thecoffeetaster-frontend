@@ -1,0 +1,81 @@
+<app-header></app-header>
+
+<main class="login-page">
+  <section class="login-card" aria-labelledby="login-title">
+    <h1 id="login-title">{{ messages.title }}</h1>
+
+    @if (notice(); as noticeText) {
+      <p class="notice" role="status">
+        <span class="material-icons notice-icon" aria-hidden="true">info_outline</span>
+        <span>{{ noticeText }}</span>
+      </p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <!-- Región de anuncio para lectores de pantalla (RN-13) -->
+      <p class="sr-only" role="status" aria-live="polite">{{ liveMessage() }}</p>
+
+      <div class="field">
+        <label for="email">{{ messages.labelEmail }}</label>
+        <input
+          #emailInput
+          id="email"
+          type="email"
+          name="email"
+          formControlName="email"
+          autocomplete="email"
+          [attr.aria-invalid]="emailError() ? 'true' : null"
+          [attr.aria-describedby]="emailError() ? 'email-error' : null"
+          (blur)="markTouched('email')"
+        />
+        @if (emailError(); as error) {
+          <p class="field-error" id="email-error" aria-live="polite">{{ error }}</p>
+        }
+      </div>
+
+      <div class="field">
+        <label for="password">{{ messages.labelPassword }}</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          formControlName="password"
+          autocomplete="current-password"
+          [attr.aria-invalid]="passwordError() ? 'true' : null"
+          [attr.aria-describedby]="passwordError() ? 'password-error' : null"
+          (blur)="markTouched('password')"
+        />
+        @if (passwordError(); as error) {
+          <p class="field-error" id="password-error" aria-live="polite">{{ error }}</p>
+        }
+      </div>
+
+      <div class="messages" aria-live="polite">
+        @if (loginError(); as error) {
+          <p class="form-error">
+            <span class="material-icons error-icon" aria-hidden="true">error_outline</span>
+            <span>{{ error }}</span>
+          </p>
+        }
+
+        @if (blockInfo(); as block) {
+          <p class="form-error form-error--blocked">
+            <span class="material-icons error-icon" aria-hidden="true">lock</span>
+            <span>
+              @if (block.minutesRemaining) {
+                Demasiados intentos fallidos. Vuelve a intentarlo en {{ block.minutesRemaining }}
+                {{ block.minutesRemaining === 1 ? 'minuto' : 'minutos' }}
+              } @else {
+                {{ messages.errorBlocked }}
+              }
+            </span>
+          </p>
+        }
+      </div>
+
+      <button type="submit" class="submit" [disabled]="!canSubmit()">
+        {{ isSubmitting() ? messages.submitting : messages.submit }}
+      </button>
+    </form>
+  </section>
+</main>
